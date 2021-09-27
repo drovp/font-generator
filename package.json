@@ -1,0 +1,46 @@
+{
+	"name": "@drovp/font-generator",
+	"version": "1.0.0",
+	"description": "Generate ttf, woff, woff2, eot, and svg fonts with optional subsetting.",
+	"main": "dist/index.js",
+	"keywords": [
+		"drovpplugin",
+		"font",
+		"fonts",
+		"ttf",
+		"woff",
+		"woff2",
+		"eot",
+		"svg",
+		"oft"
+	],
+	"author": "tomasklaen",
+	"license": "MIT",
+	"publishConfig": {
+		"access": "public"
+	},
+	"files": [
+		"dist"
+	],
+	"scripts": {
+		"build": "tsc",
+		"watch": "tsc --watch",
+		"clean": "rimraf dist",
+		"start": "npm-run-all clean watch",
+		"preversion": "npm-run-all clean build",
+		"git-push": "git push",
+		"npm-publish": "npm publish",
+		"postversion": "npm-run-all git-push npm-publish"
+	},
+	"devDependencies": {
+		"@drovp/types": "^1.0.1",
+		"npm-run-all": "^4.1.5",
+		"rimraf": "^3.0.2",
+		"tslib": "^2.3.1",
+		"typescript": "^4.4.3"
+	},
+	"dependencies": {
+		"code-points": "^1.1.3",
+		"fonteditor-core": "^2.1.8"
+	}
+}
