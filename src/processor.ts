@@ -45,7 +45,7 @@ function makeRange(start: number, end: number) {
 
 export default async (payload: Payload, utils: ProcessorUtils) => {
 	const {item, options} = payload;
-	const {stage, progress, result} = utils;
+	const {stage, progress, output} = utils;
 	const inputDirectory = Path.dirname(item.path);
 	const inputExtension = Path.extname(item.path);
 	const inputType = inputExtension.trim().replace('.', '').toLowerCase();
@@ -96,8 +96,7 @@ export default async (payload: Payload, utils: ProcessorUtils) => {
 		// Write font
 		// @ts-ignore again incorrect types, man this types are bad
 		await FSP.writeFile(outputPath, fontContents);
+		output.file(outputPath);
 		progress.completed = i;
 	}
-
-	result.string('test-result');
 };
