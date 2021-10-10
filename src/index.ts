@@ -86,7 +86,7 @@ export default (plugin: Plugin) => {
 			if (payload.options.ask || utils.modifiers === 'ctrl') {
 				const result = await utils.showOpenDialog({
 					title: `Destination directory`,
-					defaultPath: Path.dirname(payload.item.path),
+					defaultPath: Path.dirname(payload.input.path),
 					properties: ['openDirectory', 'createDirectory', 'promptToCreate'],
 				});
 

@@ -44,12 +44,12 @@ function makeRange(start: number, end: number) {
 }
 
 export default async (payload: Payload, utils: ProcessorUtils) => {
-	const {item, options} = payload;
+	const {input, options} = payload;
 	const {stage, progress, output} = utils;
-	const inputDirectory = Path.dirname(item.path);
-	const inputExtension = Path.extname(item.path);
+	const inputDirectory = Path.dirname(input.path);
+	const inputExtension = Path.extname(input.path);
 	const inputType = inputExtension.trim().replace('.', '').toLowerCase();
-	const inputName = Path.basename(item.path, inputExtension);
+	const inputName = Path.basename(input.path, inputExtension);
 	const outputDirectory = Path.resolve(inputDirectory, options.destination);
 
 	if (!isInputFontType(inputType)) throw new Error(`Invalid input file type "${inputType}"."`);
@@ -68,7 +68,7 @@ export default async (payload: Payload, utils: ProcessorUtils) => {
 		}
 	}
 
-	const inputContents = await FSP.readFile(item.path);
+	const inputContents = await FSP.readFile(input.path);
 	const font = Font.create(inputContents, {type: inputType, subset});
 
 	// @ts-ignore another mistyped API, the argument is optional...
@@ -89,8 +89,8 @@ export default async (payload: Payload, utils: ProcessorUtils) => {
 		const outputPath = Path.join(outputDirectory, `${inputName}.${format}`);
 
 		// Check if we need to backup and do so
-		if (isSamePath(item.path, outputPath)) {
-			await FSP.rename(item.path, Path.join(inputDirectory, `${inputName}.BACKUP${inputExtension}`));
+		if (isSamePath(input.path, outputPath)) {
+			await FSP.rename(input.path, Path.join(inputDirectory, `${inputName}.BACKUP${inputExtension}`));
 		}
 
 		// Write font
