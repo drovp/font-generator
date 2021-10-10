@@ -93,6 +93,9 @@ export default async (payload: Payload, utils: ProcessorUtils) => {
 			await FSP.rename(input.path, Path.join(inputDirectory, `${inputName}.BACKUP${inputExtension}`));
 		}
 
+		// Ensure directory exists
+		await FSP.mkdir(outputDirectory, {recursive: true});
+
 		// Write font
 		// @ts-ignore again incorrect types, man this types are bad
 		await FSP.writeFile(outputPath, fontContents);
