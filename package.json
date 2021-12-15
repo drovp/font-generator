@@ -1,6 +1,6 @@
 {
 	"name": "@drovp/font-generator",
-	"version": "3.0.1",
+	"version": "3.0.2",
 	"description": "Generate ttf, woff, woff2, eot, and svg fonts with optional subsetting.",
 	"main": "dist/index.js",
 	"homepage": "https://github.com/drovp/font-generator",
