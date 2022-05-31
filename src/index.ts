@@ -74,6 +74,8 @@ const acceptsFlags = makeAcceptsFlags<Options>()({
 
 export type Payload = PayloadData<Options, typeof acceptsFlags>;
 
+const DESTINATION_MODIFIER = process.platform === 'darwin' ? 'Alt' : 'Ctrl';
+
 export default (plugin: Plugin) => {
 	plugin.registerProcessor<Payload>('font-generator', {
 		main: 'dist/processor.js',
@@ -83,7 +85,7 @@ export default (plugin: Plugin) => {
 		parallelize: true,
 		options: optionsSchema,
 		operationPreparator: async (payload, utils) => {
-			if (payload.options.ask || utils.modifiers === 'ctrl') {
+			if (payload.options.ask || utils.modifiers === DESTINATION_MODIFIER) {
 				const result = await utils.showOpenDialog({
 					title: `Destination directory`,
 					defaultPath: Path.dirname(payload.input.path),
@@ -105,7 +107,7 @@ export default (plugin: Plugin) => {
 			return payload;
 		},
 		modifierDescriptions: {
-			ctrl: `ask for destination folder (overwrites options)`,
+			[DESTINATION_MODIFIER]: `ask for destination folder (overwrites options)`,
 		},
 	});
 };
